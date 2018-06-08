@@ -1,9 +1,11 @@
+# Import the required modules
+import pymongo      # to connect to the Mongo DB
+import bottle       # to use bottle frame to launch a website
 
-import pymongo
-import bottle
-
+# Connect to the DB and get the Employee collection
 emp_coll = pymongo.MongoClient("localhost", 27017).Employee.emp
 
+# Home page route
 @bottle.route("/")
 def home():
 
@@ -16,15 +18,14 @@ def home():
 
         employees_in_db_temp += """
         <tr>
-        <td style="padding: 5px; border: 1px solid white;">{}</td>
+        <td style="padding: 5px; border: 1px solid white;">{}</td>        
         <td style="padding: 5px; border: 1px solid white;">{}</td>
         <td style="padding: 5px; border: 1px solid white;">{}</td>
         <td style="padding: 5px; border: 1px solid white;">{}</td>
         </tr>
         """.format(i, emp["EmpNo"], emp["FirstName"], emp["Age"])
 
-    html = open("./views/index.html", "r").read().format(employees_in_db_temp)
-    return html
+    return open("./views/index.html", "r").read().format(employees_in_db_temp)
 
 @bottle.route("/emp/<name>")
 def empInfo(name=None):
@@ -43,7 +44,7 @@ def deleteEmp(name=None):
 
 @bottle.route("/emp")
 def empError():
-    return "<h1>Please Specify Employee Name in Route</h1><p><b>For Example:</b> `<code>/emp/ABC</code>`</p>"
+    return "<h1>Please Specify Employee Name in Route</h1><p><b>For Example:</b> `<code>/emp/[EmployeeFirstName]</code>`</p>"
 
 @bottle.route("/new")
 def registerPage():
