@@ -14,7 +14,7 @@ Just clone the repo using -
 To run the projects run the following command in Terminal -
 ````bash
 
-    python[.x] Employee_Main.py
+    python[x.y] Employee_Main.py
 
 ````
 
